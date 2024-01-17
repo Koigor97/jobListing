@@ -36,3 +36,12 @@ JobListing is a web application designed to simplify the job posting and job sea
 ### Responsive Design
 
 - The web application is designed to be responsive, ensuring a seamless experience across different devices.
+
+## Installation
+
+To run the JobListing web application locally, follow these steps:
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/your-username/JobListing.git
+   ```
