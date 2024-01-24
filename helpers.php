@@ -1,4 +1,4 @@
-<?php
+z<?php
 
 /**
  * This function get the base path 
@@ -17,11 +17,12 @@
  * @param string $name
  * @return void
  */
-function loadView($name) {
-    $viewPath = base_path("views/{$name}.view.php");
+function loadView($name, $data = []) {
+    $viewPath = base_path("App/views/{$name}.view.php");
 
     // Check if the file exists
     if (file_exists($viewPath)) {
+        extract($data);
         require $viewPath;
     } else {
         echo "The view {$name} does not exists";
@@ -36,7 +37,7 @@ function loadView($name) {
  * @return void
  */
 function loadPartial($name) {
-    $partialPath = base_path("views/partials/{$name}.php");
+    $partialPath = base_path("App/views/partials/{$name}.php");
     
 
     // Check if the file exists
@@ -70,3 +71,13 @@ function inspect($data) {
     die(var_dump($data));
     echo '</pre>';
  }
+
+/**
+ * This fucntion format salary
+ * 
+ * @param int $salary
+ * @return string Formatted salary
+ */
+function formatSalary($salary) {
+    return '$' . number_format(floatval($salary));
+}
