@@ -90,4 +90,4 @@ function formatSalary($salary) {
  */
 function sanitize($dirtyValue) {
     return filter_var(trim($dirtyValue), FILTER_SANITIZE_SPECIAL_CHARS);
-}
+} 
