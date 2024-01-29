@@ -94,7 +94,14 @@ class ListingController {
             // Reload view with errors
             loadView('listings/create', ['errors' => $errors, 'listing' => $newListingData]);
         } else {
+            // Submit data
+            $fields = [];
 
+            foreach ($newListingData as $field => $value) {
+                $field[] = $field;
+            }
+
+            $fields = implode('. ', $fields); 
         }
     }
 }
