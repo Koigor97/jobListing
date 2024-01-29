@@ -81,3 +81,13 @@ function inspect($data) {
 function formatSalary($salary) {
     return '$' . number_format(floatval($salary));
 }
+
+/**
+ * Sanitize data
+ * 
+ * @param string $dirtyValue
+ * @return string
+ */
+function sanitize($dirtyValue) {
+    return filter_var(trim($dirtyValue), FILTER_SANITIZE_SPECIAL_CHARS);
+}
