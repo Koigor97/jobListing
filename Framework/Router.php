@@ -38,9 +38,9 @@ class Router {
      * @param string $controller
      * @return void
      */
-     function get($uri, $controller) {
+    function get($uri, $controller) {
          $this->registerRoute('GET', $uri, $controller);
-     }
+    }
 
 
     /**
@@ -50,9 +50,9 @@ class Router {
      * @param string $controller
      * @return void
      */
-     function post($uri, $controller) {
+    function post($uri, $controller) {
         $this->registerRoute('POST', $uri, $controller);
-     }
+    }
 
 
     /**
@@ -62,9 +62,9 @@ class Router {
      * @param string $controller
      * @return void
      */
-     function put($uri, $controller) {
+    function put($uri, $controller) {
         $this->registerRoute('PUT', $uri, $controller);
-     }
+    }
 
 
     /**
@@ -74,9 +74,9 @@ class Router {
      * @param string $controller
      * @return void
      */
-     function delete($uri, $controller) {
+    function delete($uri, $controller) {
          $this->registerRoute('DELETE', $uri, $controller);
-     }
+    }
 
     /**
      * This function would route the request
@@ -85,10 +85,16 @@ class Router {
      * @param string $method
      * @return void
      */
-     public function route($uri) {
+    public function route($uri) {
         $requestMethod = $_SERVER['REQUEST_METHOD'];
+
+        // check for _method in the request
+        if ($requestMethod === 'POST' && isset($_REQUEST['_method'])) {
+            // override the request method
+            $requestMethod = strtoupper($_POST['_method']);
+        }
          // looping through the routes
-         foreach ($this->routes as $route) {
+        foreach ($this->routes as $route) {
             // split the current route uri into an array
             $uriSegments = explode('/', trim($uri, '/'));
             // split the route uri into an array
@@ -113,27 +119,27 @@ class Router {
                     if (preg_match('/\{(.+?)\}/', $routeSegments[$i], $matches)) {
                         $params[$matches[1]] = $uriSegments[$i];
                     }
-
-                    if ($match) {
-                         //extracting the controller and the method
-                        $controller = 'App\\Controllers\\' . $route['controller'];
-                        $controllerMethod = $route['controllerMethod'];
-
-                        // instantiating the controller and calling the method
-                        $controllerInstance = new $controller();
-                        $controllerInstance->$controllerMethod($params);
-
-                        return;
-
-                    }
                 }
+
+                if ($match) {
+                         //extracting the controller and the method
+                    $controller = 'App\\Controllers\\' . $route['controller'];
+                    $controllerMethod = $route['controllerMethod'];
+
+                    // instantiating the controller and calling the method
+                    $controllerInstance = new $controller();
+                    $controllerInstance->$controllerMethod($params);
+
+                    return;
+
+                }
+                
             }
 
-         }
+        }
 
-         // if the route does not exists
-         ErrorController::notFound();
-     }
-
+        // if the route does not exists
+        ErrorController::notFound();
+    }
 
 }
