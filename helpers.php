@@ -91,3 +91,13 @@ function formatSalary($salary) {
 function sanitize($dirtyValue) {
     return filter_var(trim($dirtyValue), FILTER_SANITIZE_SPECIAL_CHARS);
 } 
+
+/**
+ * This function redirect to a given path
+ * 
+ * @param string url
+ * @return void
+ */
+function redirect($url) {
+    header("Location: {$url}");
+}
