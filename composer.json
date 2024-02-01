@@ -1,16 +1,16 @@
 {
-  "name": "koigor97/job-listing",
-  "description": "Job Listing Application",
+  "name": "bradtraversy/workopia-php",
+  "description": "Job listing application",
   "authors": [
     {
-      "name": "Koigor97",
-      "email": "turaysamuel101@yahoo.com"
+      "name": "Brad Traversy",
+      "email": "support@traversymedia.com"
     }
   ],
   "autoload": {
     "psr-4": {
-      "App\\": "App/",
-      "Framework\\": "Framework/"
+      "Framework\\": "Framework/",
+      "App\\": "App/"
     }
   }
 }
