@@ -1,103 +1,111 @@
-z<?php
+<?php
 
 /**
- * This function get the base path 
+ * Get the base path
  * 
  * @param string $path
  * @return string
  */
- function base_path($path = '') {
-     return __DIR__ . '/' . $path;
- }
-
+function basePath($path = '')
+{
+  return __DIR__ . '/' . $path;
+}
 
 /**
- * This is going to Load the View
+ * Load a view
  * 
  * @param string $name
  * @return void
+ * 
  */
-function loadView($name, $data = []) {
-    $viewPath = base_path("App/views/{$name}.view.php");
+function loadView($name, $data = [])
+{
+  $viewPath = basePath("App/views/{$name}.view.php");
 
-    // Check if the file exists
-    if (file_exists($viewPath)) {
-        extract($data);
-        require $viewPath;
-    } else {
-        echo "The view {$name} does not exists";
-    }
-   
+  if (file_exists($viewPath)) {
+    extract($data);
+    require $viewPath;
+  } else {
+    echo "View '{$name} not found!'";
+  }
 }
 
+
 /**
- * This function is going to Load the Partial
+ * Load a partial
  * 
  * @param string $name
  * @return void
+ * 
  */
-function loadPartial($name) {
-    $partialPath = base_path("App/views/partials/{$name}.php");
-    
+function loadPartial($name, $data = [])
+{
+  $partialPath = basePath("App/views/partials/{$name}.php");
 
-    // Check if the file exists
-    if (file_exists($partialPath)) {
-        require $partialPath;
-    } else {
-        echo "The partial {$name} does not exists";
-    }
+  if (file_exists($partialPath)) {
+    extract($data);
+    require $partialPath;
+  } else {
+    echo "Partial '{$name} not found!'";
+  }
 }
 
 /**
- * This function inspect a value(e)
+ * Inspect a value(s)
  * 
- * @param mixed $data
+ * @param mixed $value
  * @return void
- */ 
-function inspect($data) {
-    echo '<pre>';
-    (var_dump($data));
-    echo '</pre>';
-}
-
-/**
- * Inspecta value and die
- * 
- * @param mixed $data
- * @return void
- */ 
- function inspectValueAndDie($data) {
-    echo '<pre>';
-    die(var_dump($data));
-    echo '</pre>';
- }
-
-/**
- * This fucntion format salary
- * 
- * @param int $salary
- * @return string Formatted salary
  */
-function formatSalary($salary) {
-    return '$' . number_format(floatval($salary));
+function inspect($value)
+{
+  echo '<pre>';
+  var_dump($value);
+  echo '</pre>';
 }
 
 /**
- * Sanitize data
+ * Inspect a value(s) and die
  * 
- * @param string $dirtyValue
+ * @param mixed $value
+ * @return void
+ */
+function inspectAndDie($value)
+{
+  echo '<pre>';
+  die(var_dump($value));
+  echo '</pre>';
+}
+
+/**
+ * Format salary
+ * 
+ * @param string $salary
+ * @return string Formatted Salary
+ */
+function formatSalary($salary)
+{
+  return '$' . number_format(floatval($salary));
+}
+
+/**
+ * Sanitize Data
+ * 
+ * @param string $dirty
  * @return string
  */
-function sanitize($dirtyValue) {
-    return filter_var(trim($dirtyValue), FILTER_SANITIZE_SPECIAL_CHARS);
-} 
+function sanitize($dirty)
+{
+  return filter_var(trim($dirty), FILTER_SANITIZE_SPECIAL_CHARS);
+}
 
 /**
- * This function redirect to a given path
+ * Redirect to a given url
  * 
- * @param string url
+ * @param string $url
  * @return void
  */
-function redirect($url) {
-    header("Location: {$url}");
+function redirect($url)
+{
+  header("Location: {$url}");
+  exit;
 }
